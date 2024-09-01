@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        body {
+            background-color: #000000;
+            padding: 0; 
+            margin: 0; 
+            overflow: hidden; 
+        }
+        #game-board {
+            position: relative; 
+            width: 100%;
+            height: 100vh;
+            box-sizing: border-box; 
+        }
+        #goku {
+            position: absolute;
+            left: 0;
+            top: calc(100% - 100px); 
+        }
+        #bullet {
+            position: absolute;
+            left: 50px; 
+            top: 80%; 
+            width: 30px; 
+            height: auto;
+            display: none;
+        }
+        #bullet img {
+            width: 200%; /* Make the image fill the bullet container */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <audio controls autoplay loop hidden>
+        <source src="themes.mp3" type="audio/mp3">
+    </audio>
+    <div id="game-board">
+        <div id="bullet">
+            <img src="kamehameha.gif" alt="Bullet">
+        </div>
+        <div id="goku">
+            <img src="goku.gif" alt="Goku">
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
