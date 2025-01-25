@@ -1,0 +1,51 @@
+
+finish.mp4
+# -------------------------------------------------------------------
+
+# General exclusion rules from the remote server's requirements
+*.[Dd][Ss]_[Ss]tore
+*.exe
+*.dll
+*.war
+*.jar
+node_modules/
+
+# Large media files (common in games)
+*.mp4
+*.avi
+*.mkv
+*.wmv
+*.flv
+*.mp3
+*.wav
+*.ogg
+
+# Game assets (adjust as needed)
+*.psd
+*.blend
+*.fbx
+*.unitypackage
+*.zip
+*.rar
+
+# Build artifacts
+/build/
+/dist/
+/bin/
+/obj/
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+
+# OS metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs and databases
+*.log
+*.sqlite

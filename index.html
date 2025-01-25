@@ -6,49 +6,515 @@
     <title>Game</title>
     <style>
         body {
-            background-color: #000000;
+            background-image: url(newback.gif);
+            background-size: cover;
             padding: 0; 
             margin: 0; 
             overflow: hidden; 
         }
+        .full-screen-div {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: #f0f0f0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 0; /* Ensure there's no gap */
+        }
+        .tile {
+            box-sizing: border-box;
+            background-color: #fff; /* Default background */
+            border: 0; /* Remove border for no gaps */
+            padding: 0; /* Remove padding */
+            margin: 0; /* Remove margin */
+            overflow: hidden; /* Contain overflow */
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block; /* Prevents inline space */
+        }
+        @font-face {
+            font-family: myFont;
+            src: url(Saiyan-Sans.ttf);
+        }
+        .game-over {
+    position: fixed; /* Make it overlay the game */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white; /* Text color */
+    padding: 40px; /* Increased padding for aesthetics */
+    border-radius: 10px; /* Rounded corners */
+    z-index: 2; /* Ensure it's on top */
+    display: flex; /* Flexbox for centering content */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center content */
+    justify-content: center; /* Center content */
+    height: auto; /* Allow height to fit content */
+    width: auto; /* Allow width to fit content */
+    max-width: 80%; /* Set a maximum width */
+    max-height: 80%; /* Set a maximum height */
+    overflow: auto; /* Allow scrolling if content overflows */
+}
+
+.game-over h1 {
+    font-family: 'myFont'; /* Ensure your custom font is applied */
+    font-size: 100px; /* Increase font size */
+    text-align: center; /* Center text */
+    margin: 5px 0; /* Reduced vertical margin */
+    line-height: 1.1; /* Reduced line height */
+}
+
+.game-over p {
+    font-size: 37px; /* Increase font size for paragraph */
+    text-align: center; /* Center text within paragraph */
+    margin: 10px 0; /* Margin for spacing */
+}
+
+.game-over button {
+    padding: 15px 30px; /* Increased button padding */
+    border: none; /* Remove default border */
+    background-color: #f00; /* Red background */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded button */
+    font-family: 'myFont'; /* Ensure your custom font is applied */
+    font-size: 50px; /* Adjusted button font size */
+    margin-top: 20px; /* Increased margin above button */
+}
+
+.game-over button:hover {
+    background-color: #c00; /* Darker red on hover */
+}
+
+.lore-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+
+}
+
+.lore-text {
+    flex: 1;
+    margin-right: 20px; /* Space between text and image */
+    font-size: 33px;
+    text-align: center;
+
+}
+
+
+.ps {
+    position: fixed; /* Make it overlay the game */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white; /* Text color */
+    padding: 20px; /* Padding for aesthetics */
+    border-radius: 10px; /* Rounded corners */
+    z-index: 2; /* Ensure it's on top */
+    display: flex; /* Flexbox for centering content */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center content */
+    justify-content: center; /* Center content */
+    height: 40%;
+    width: 20%;
+
+}
+
+#userName{
+font-size: 40px;
+}
+.ps button {
+    padding: 10px 20px; /* Button padding */
+    border: none; /* Remove default border */
+    background-color: #f00; /* Red background */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded button */
+    font-family: 'myFont'; /* Apply custom font */
+    font-size: 100px; /* Font size for buttons */
+    text-align: center; /* Center text */
+    margin-bottom: 20px; /* Add a gap between the buttons */
+}
+
+.ps button:last-child {
+    margin-bottom: 0; /* Remove margin for the last button */
+
+}
+
+.ps button:hover {
+    background-color: #c00; /* Darker red on hover */
+
+}
+
         #game-board {
             position: relative; 
             width: 100%;
             height: 100vh;
             box-sizing: border-box; 
+
         }
         #goku {
             position: absolute;
-            left: 0;
-            top: calc(100% - 100px); 
+            will-change: transform;
+            z-index: 0;
         }
-        #bullet {
+        .bullet {
             position: absolute;
-            left: 50px; 
+            left: 500px; 
             top: 80%; 
             width: 30px; 
             height: auto;
+            will-change: transform;
+            z-index: 1;
+
+        }
+        .bullet img {
+            width: 200%; /* Make the image fill the bullet container */
+            height: auto;
+            will-change: transform;
+
+        }
+        #freiza {
+            position: absolute;
+            left: 85%;
+            top: 40%;
+            will-change: transform;
+            z-index: 0;
+
+        }
+        #freiza img {
+            transform: scaleX(-1);
+            width: 220%;
+            will-change: transform;
+
+        }
+        .enemy1 {
+            position: absolute;
+            will-change: transform;
+            z-index: 1;
+
+        }
+        .enemy1 img {
+            transform: scaleX(-1);
+            width: 220%;
+            will-change: transform;
+
+        }
+        .laser {
+            position: absolute;
+            display: none;
+            will-change: transform;
+            z-index: 1;
+        }
+        .laser img {
+            transform: scaleX(-1);
+           width: 200%;
+           will-change: transform;
+
+        }
+        .upper img {
+            width: 50%;
+            z-index: 1;
+            will-change: transform;
+
+        }
+        .upper {
+            position: absolute;
+            display: block;
+            top: -50px;
+            z-index: 1;
+            will-change: transform;
+
+        }
+        .kame {
+            position: absolute;
+            will-change: transform;
+            z-index: 1;
+
+        }
+
+        .gokuhealth {
+            position: absolute;
+            top: 93%;
+            left: 7.5%;
+            z-index: 2;
+            will-change: transform;
+
+        }
+        .thegokupic {
+            position: absolute;
+            top: 88%;
+            left: 2%;
+            z-index: 2;
+        }
+        .thegokupic img{
+width: 300%;
+        }
+
+        .freizahealth {
+            position: absolute;
+            top: 6%;
+            left: 60.5%;
+            z-index: 1;
+            will-change: transform;
+
+        }
+        .thefreizapic {
+            position: absolute;
+            top: 1%;
+            left: 94%;
+            z-index: 2;
+
+        }
+        .thefreizapic img{
+width: 300%;
+
+        }
+.kame img {
+    width: 130%; /* Stretch the image horizontally */
+    will-change: transform;
+
+}
+.kibar {
+    position: absolute;
+    top: 96%;
+    left: 7.5%;
+    will-change: transform;
+    z-index: 2;
+
+}
+#timer-container {
+    display: flex; 
+    justify-content: center; 
+    width: 100%; 
+    margin-bottom: 20px; /* Space below the timer if needed */
+    position: relative;
+    top: 5%;
+    will-change: transform;
+    z-index: 2;
+
+}
+#hell {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: #ffffff; /* White text color */
+    padding: 10px 20px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 30px; /* Larger font size */
+    text-align: center; /* Center the text */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+.st {
+    position: fixed; /* Overlay the game */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white; /* Text color */
+    padding: 30px; /* Increased padding for aesthetics */
+    border-radius: 10px; /* Rounded corners */
+    z-index: 2; /* Ensure it's on top */
+    display: flex; /* Flexbox for centering content */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center content */
+    justify-content: center; /* Center content */
+    height: auto; /* Adjust height automatically */
+    width: 80%; /* Width adjusted for better responsiveness */
+    max-width: 800px; /* Max width for larger screens */
+}
+
+.st h2 {
+    margin: 5px 0; /* Reduced space around the title */
+    font-size: 56px; /* Larger font size for the title */
+   
+}
+
+.st p {
+    margin: 5px 0; /* Reduced space around the paragraph */
+    font-size: 60px; /* Larger font size for paragraph */
+    text-align: center; /* Center text */
+    color: orange;
+}
+
+.st ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 5px 0; /* Reduced margin for the list */
+    color: red;
+}
+
+.st li {
+    font-size: 40px; /* Increased font size for list items */
+    margin: 5px 0; /* Add small vertical margin between list items */
+}
+
+.st button {
+    padding: 15px 10px; /* Increased button padding */
+    border: none; /* Remove default border */
+    background-color: #f00; /* Red background */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded button */
+    font-family: 'myFont'; /* Apply custom font */
+    font-size: 80px; /* Larger font size for buttons */
+    text-align: center; /* Center text */
+    margin-bottom: 10px; /* Reduced gap between buttons */
+}
+
+.st button:last-child {
+    margin-bottom: 0; /* Remove margin for the last button */
+}
+
+.st button:hover {
+    background-color: #c00; /* Darker red on hover */
+}
+
+video {
+            position: fixed; /* Fullscreen positioning */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire screen */
+            z-index: 1000; /* Ensure it's on top */
             display: none;
         }
-        #bullet img {
-            width: 200%; /* Make the image fill the bullet container */
-            height: auto; /* Maintain aspect ratio */
-        }
+
+/* Existing styles for the scores page */
+.scores-container {
+    position: fixed;
+    top: 20%;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    width: 400px;
+    max-height: 80%; /* Keep this if you want to limit the height */
+    display: none;
+}
+
+.scores-container h2 {
+    margin: 5px 0;
+    font-size: 36px;
+}
+
+.scores-header {
+    display: flex; /* Use flexbox for header layout */
+    width: 100%; /* Full width */
+    background-color: rgba(255, 165, 0, 0.8); /* Orange background */
+    color: black; /* Text color */
+    padding: 0; /* Remove extra padding */
+    border-radius: 5px; /* Rounded corners for header */
+    margin-bottom: 10px; /* Space below header */
+}
+
+.scores-header span,
+.score-item {
+    flex: 1; /* Equal space for each header item and list item */
+    text-align: center; /* Center text */
+    font-weight: bold; /* Make text bold for header */
+    font-size: 20px; /* Adjust to desired size */
+    padding: 10px 0; /* Add vertical padding */
+    min-height: 50px; /* Set a minimum height for uniformity */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Specific styles for the scores list items */
+.scores-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 0;
+    color: red;
+    flex-grow: 1;
+}
+
+.scores-container li {
+    display: flex; /* Use flexbox for list items */
+    justify-content: space-between; /* Equal space between items */
+    width: 100%; /* Ensure the li takes the full width */
+    text-align: center; /* Center text within each item */
+}
+
+.scores-container button {
+    padding: 15px 10px; /* Increased padding for a larger button */
+    border: none;
+    background-color: #f00;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'myFont';
+    font-size: 20px; /* Increased font size */
+    text-align: center;
+    margin: 10px 0; /* Adjust margin for spacing */
+}
+
+.scores-container button:disabled {
+    background-color: #ccc; /* Change color when disabled */
+    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+}
+
+.scores-container button:hover {
+    background-color: #c00;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Full width for pagination */
+}
     </style>
 </head>
 <body>
-    <audio controls autoplay loop hidden>
-        <source src="themes.mp3" type="audio/mp3">
-    </audio>
+    <div class="full-screen-div" id="fullscreenDiv" style="visibility: hidden;"></div>
+
     <div id="game-board">
-        <div id="bullet">
-            <img src="kamehameha.gif" alt="Bullet">
+        <div id="timer-container"> <!-- New container for centering -->
+            <div id ="hell">
+                <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
+            </div>
+        </div>
+            <div id="stats">
+            </div>
+        <div id="enemies">
+            <div id="freiza"> <img src="img/freiza/freiza.gif" alt="enemy"></div>
+        </div>
+
+        <div id="bullets">
         </div>
         <div id="goku">
-            <img src="goku.gif" alt="Goku">
+            <img src="img/goku/gokumoving.gif" alt="Goku">
         </div>
     </div>
-
+    <video id="finishVideo" src="finish.mp4" preload="auto" ></video>
+    <div class="scores-container" id="scoresPage">
+        <h2>Scores</h2>
+        <div class="scores-header">
+            <span class="header-rank">Rank</span>
+            <span class="header-name">Name</span>
+            <span class="header-score">Score</span>
+            <span class="header-time">Time</span>
+        </div>
+        <ul id="scoresList">
+            <!-- Scores will be populated here -->
+        </ul>
+        <div class="pagination">
+            <button id="prevButton">Left</button>
+            <button id="nextButton">Right</button>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
