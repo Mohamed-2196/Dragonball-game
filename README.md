@@ -73,4 +73,4 @@ No copyright infringement intended – just pure, unadulterated fandom!*
 ---
 
 **Power up, warrior. Namek’s counting on you.** 🔥🐉
-```
+
