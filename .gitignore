@@ -1,5 +1,4 @@
 
-finish.mp4
 # -------------------------------------------------------------------
 
 # General exclusion rules from the remote server's requirements
@@ -11,7 +10,6 @@ finish.mp4
 node_modules/
 
 # Large media files (common in games)
-*.mp4
 *.avi
 *.mkv
 *.wmv
